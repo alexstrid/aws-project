@@ -22,5 +22,5 @@ def calculator(event,context):
     sum = number1 + number2
     return {
         'statusCode': 200,
-        'body': json.dumps('The sum of '+str(number1)+ ' and '+str(number2) +' is '+str(sum))
+        'body': json.dumps('The sum of '+str(number1)+ ' and '+str(number2) +' is '+str(sum)+'. Woho, webhook works!')
     }
