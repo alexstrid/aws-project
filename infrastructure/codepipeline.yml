@@ -10,7 +10,7 @@ Parameters:
     artifactBucket:
       Type: 'AWS::S3::Bucket'
       Properties:
-        BucketName: "sls-visma-course-artifact-bucket-1337"
+        BucketName: "sls-visma-course-artifact-bucket-3142"
         AccessControl: Private
         VersioningConfiguration:
           Status: Enabled
