@@ -3,7 +3,7 @@ import json
 
 def hello(event, context):
    body = {
-       "message": "Go Serverless v1.0!",
+       "message": "Go Serverless v1.0! Testing Webhook",
        "input": event
    }
 
