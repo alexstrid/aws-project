@@ -3,8 +3,8 @@ version: 0.2
 phases:
  pre_build:
    commands:
-     - npx install
-     - npx install serverless
+     - npm install
+     - npm install serverless
      - npx serverless plugin install -n serverless-python-requirements
  build:
    commands:
