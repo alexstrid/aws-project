@@ -91,4 +91,45 @@ Resources:
           Status: ENABLED
       TimeoutInMinutes: 5
 
+  slsBackendPipeline:
+   Type: AWS::CodePipeline::Pipeline
+   Properties:
+     Name: "sls-pipeline"
+     RoleArn:
+       Fn::GetAtt: [ backendPipelineRole, Arn ]
+     Stages:
+       - Name: Source
+         Actions:
+         - Name: SLS-Course
+           ActionTypeId:
+             Category: Source
+             Owner: ThirdParty
+             Version: 1
+             Provider: GitHub
+           Configuration:
+             Owner: alexstrid
+             Repo: aws-project
+             Branch: main
+             PollForSourceChanges: false
+             OAuthToken: '{{resolve:secretsmanager:GITHUB_ACCESS_TOKEN:SecretString:GITHUB_ACCESS_TOKEN}}'
+           OutputArtifacts:
+             - Name: SourceArtifact
+           Region: !Sub ${Region}
+       - Name: Deploy
+         Actions:
+         - Name: DeployBackend
+           ActionTypeId:
+             Category: Build
+             Owner: AWS
+             Version: 1
+             Provider: CodeBuild
+           Configuration:
+             ProjectName: !Ref deploySlsCodeBuild
+           RunOrder: 2
+           Region: !Ref Region
+           InputArtifacts:
+             - Name: SourceArtifact
+     ArtifactStore:
+       Type: S3
+       Location: !Ref artifactBucket
 
